@@ -6,12 +6,17 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter @Setter
 public class Todo {
     @Id
     @GeneratedValue
     private Long id;
-    private String title;
+
+    private String name;
     private boolean completed;
+    private LocalDateTime createdAt;
+
 }

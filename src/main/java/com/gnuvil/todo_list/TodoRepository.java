@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class TodoRepository {
@@ -18,5 +20,14 @@ public class TodoRepository {
         Todo todo = em.find(Todo.class, id);
         return todo;
     }
+    public List<Todo> findAll(){
+        return em.createQuery("select t from Todo t", Todo.class)
+                .getResultList();
+    }
+
+    public void remove(Todo todo) {
+        em.remove(todo);
+    }
+
 
 }
