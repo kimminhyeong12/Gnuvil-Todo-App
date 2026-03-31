@@ -1,47 +1,74 @@
-const todos = [
-  { id: 1, title: "치킨 먹기" },
-  { id: 2, title: "콜라 마시기" },
-  { id: 3, title: "웹개발 스터디하기" },
-];
+import { useState } from "react";
+import AddTodo from "./components/AddTodo";
+import EditTodo from "./components/EditTodo";
+import TodoItem from "./components/TodoItem";
+
+interface Todo {
+  id: number;
+  title: string;
+}
 
 function App() {
+  const [isEdit, setIsEdit] = useState<number | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  function addTodo(title: string) {
+    if (title.trim() === "") return;
+    setTodos((prevTodos) => {
+      return [...prevTodos, { id: Date.now(), title }];
+    });
+  }
+
+  function deleteTodo(id: number) {
+    const confirm = window.confirm("할 일을 삭제하시겠어요?");
+    if (confirm) {
+      setTodos((prevTodos) => {
+        return prevTodos.filter((todo) => todo.id !== id);
+      });
+    }
+  }
+
+  function editTodo(id: number, title: string) {
+    if (title.trim() === "") return;
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        return todo.id === id ? { ...todo, title: title } : todo;
+      });
+    });
+
+    setIsEdit(null);
+  }
+
+  function startEdit(todo: Todo) {
+    setIsEdit(todo.id);
+  }
+
   return (
     <div className="w-full min-h-screen bg-stone-100 flex flex-col items-center p-10 font-sans">
       {/* 타이틀 영역 */}
-      <h1 className="text-5xl font-black text-stone-800 mb-10 tracking-tight">오늘의 할 일</h1>
+      <h1 className="text-5xl font-black text-stone-800 mb-10 tracking-tight">To do</h1>
 
       <div className="w-full max-w-md flex flex-col gap-5">
         {/* 할 일 추가 영역 */}
-        <div className="flex gap-3 items-center bg-white p-2 rounded-lg shadow-md border border-stone-200">
-          <input
-            type="text"
-            placeholder="할 일을 추가해보세요!"
-            className="flex-1 px-4 py-2 outline-none text-stone-700 bg-transparent"
-          />
-          <button
-            type="button"
-            className="bg-stone-800 hover:bg-stone-700 cursor-pointer text-white w-10 h-10 rounded-xl transition-all flex items-center justify-center shadow-md"
-          >
-            <span className="text-2xl mb-1">+</span>
-          </button>
-        </div>
-
+        <AddTodo addTodo={addTodo} />
         {/* 할 일 목록 영역 */}
         <ul className="mt-10 space-y-3">
-          {todos.map((t) => (
-            <li
-              key={t.id}
-              className="group w-full p-4 border border-stone-200 hover:border-stone-300 transition-colors rounded-2xl flex items-center justify-between shadow-md"
-            >
-              <div className="flex items-center gap-4">
-                <input type="checkbox" className="w-5 h-5 accent-stone-800 cursor-pointer" />
-                <p className="text-stone-600 font-medium group-hover:text-stone-900">{t.title}</p>
-              </div>
-              <button className="text-stone-300 hover:text-red-700 transition-colors font-bold pr-1 cursor-pointer">
-                X
-              </button>
-            </li>
-          ))}
+          {todos.length > 0 ? (
+            todos.map((t) => (
+              <li
+                key={t.id}
+                className="group w-full p-4 border border-stone-200 hover:border-stone-300 transition-colors rounded-2xl flex items-center justify-between shadow-md"
+              >
+                {isEdit === t.id ? (
+                  <EditTodo todo={t} editTodo={editTodo} />
+                ) : (
+                  <TodoItem startEdit={startEdit} deleteTodo={deleteTodo} todo={t} />
+                )}
+              </li>
+            ))
+          ) : (
+            <p className="text-stone-600 text-center">등록된 할 일이 없습니다!</p>
+          )}
         </ul>
       </div>
     </div>
