@@ -20,12 +20,9 @@ function App() {
   }
 
   function deleteTodo(id: number) {
-    const confirm = window.confirm("할 일을 삭제하시겠어요?");
-    if (confirm) {
-      setTodos((prevTodos) => {
-        return prevTodos.filter((todo) => todo.id !== id);
-      });
-    }
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== id);
+    });
   }
 
   function editTodo(id: number, title: string) {
@@ -44,32 +41,34 @@ function App() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-stone-100 flex flex-col items-center p-10 font-sans">
-      {/* 타이틀 영역 */}
-      <h1 className="text-5xl font-black text-stone-800 mb-10 tracking-tight">To do</h1>
+    <div className="w-full min-h-screen bg-stone-100 flex flex-col items-center justify-center p-20 font-sans">
+      <div className="min-w-4xl flex flex-col items-center bg-white p-10 rounded-4xl shadow-lg border border-stone-200">
+        {/* 타이틀 영역 */}
+        <h1 className="text-5xl font-black text-stone-800 mb-10 tracking-tight">To do</h1>
 
-      <div className="w-full max-w-md flex flex-col gap-5">
-        {/* 할 일 추가 영역 */}
-        <AddTodo addTodo={addTodo} />
-        {/* 할 일 목록 영역 */}
-        <ul className="mt-10 space-y-3">
-          {todos.length > 0 ? (
-            todos.map((t) => (
-              <li
-                key={t.id}
-                className="group w-full p-4 border border-stone-200 hover:border-stone-300 transition-colors rounded-2xl flex items-center justify-between shadow-md"
-              >
-                {isEdit === t.id ? (
-                  <EditTodo todo={t} editTodo={editTodo} />
-                ) : (
-                  <TodoItem startEdit={startEdit} deleteTodo={deleteTodo} todo={t} />
-                )}
-              </li>
-            ))
-          ) : (
-            <p className="text-stone-600 text-center">등록된 할 일이 없습니다!</p>
-          )}
-        </ul>
+        <div className="w-full max-w-md flex flex-col gap-5">
+          {/* 할 일 추가 영역 */}
+          <AddTodo addTodo={addTodo} />
+          {/* 할 일 목록 영역 */}
+          <ul className="mt-10 space-y-3">
+            {todos.length > 0 ? (
+              todos.map((t) => (
+                <li
+                  key={t.id}
+                  className="group w-full p-4 border border-stone-200 hover:border-stone-300 transition-colors rounded-2xl flex items-center justify-between shadow-md"
+                >
+                  {isEdit === t.id ? (
+                    <EditTodo todo={t} editTodo={editTodo} />
+                  ) : (
+                    <TodoItem startEdit={startEdit} deleteTodo={deleteTodo} todo={t} />
+                  )}
+                </li>
+              ))
+            ) : (
+              <p className="text-stone-600 text-center">등록된 할 일이 없습니다!</p>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

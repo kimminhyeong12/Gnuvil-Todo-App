@@ -5,7 +5,7 @@ export default function AddTodo({ addTodo }: { addTodo: (title: string) => void 
 
   return (
     <form
-      className="flex gap-3 items-center bg-white p-2 rounded-lg shadow-md border border-stone-200"
+      className="flex gap-3 items-center bg-white p-2 rounded-lg shadow-md border border-stone-200 hover:border-stone-300 focus:border-stone-300 transition-all"
       onSubmit={(e) => {
         e.preventDefault();
         addTodo(userInput);

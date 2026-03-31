@@ -1,21 +1,25 @@
-export default function TodoItem({
-  startEdit,
-  deleteTodo,
-  todo,
-}: {
+import { useState } from "react";
+
+interface TodoItemProps {
   startEdit: (todo: { id: number; title: string }) => void;
   deleteTodo: (id: number) => void;
   todo: { id: number; title: string };
-}) {
+}
+
+export default function TodoItem({ startEdit, deleteTodo, todo }: TodoItemProps) {
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 w-full">
         <input
           type="checkbox"
           className="w-5 h-5 accent-stone-800 cursor-pointer"
-          onChange={(e) => console.log(e.target.checked)}
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
-        <p className="text-stone-600 font-medium group-hover:text-stone-900" onDoubleClick={() => startEdit(todo)}>
+        <p
+          className={`w-full text-stone-600 font-medium group-hover:text-stone-900 transition-all ${isChecked ? "line-through opacity-50" : ""}`}
+          onDoubleClick={() => startEdit(todo)}
+        >
           {todo.title}
         </p>
       </div>

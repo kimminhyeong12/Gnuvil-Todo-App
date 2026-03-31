@@ -20,3 +20,8 @@ API 명세서
 할 일 추가: POST - /api/todos
 할 일 수정: PATCH - /api/todos/{id}
 할 일 삭제: DELETE - /api/todos/{id}
+
+
+로그인 / 회원가입
+
+이메일 + 비밀번호
