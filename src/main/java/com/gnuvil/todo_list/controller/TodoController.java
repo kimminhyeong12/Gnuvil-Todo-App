@@ -1,12 +1,13 @@
-package com.gnuvil.todo_list;
+package com.gnuvil.todo_list.controller;
 
+import com.gnuvil.todo_list.Todo;
+import com.gnuvil.todo_list.TodoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/todos")
@@ -20,13 +21,13 @@ public class TodoController {
         return todoService.findAll();
     }
 
-    @PostMapping
-    public Long createTodo(@RequestBody Todo todo) {
+    @PostMapping //post 요청 처리
+    public Long makeTodos(@RequestBody Todo todo) { //RequestBody는 json을 객체로 변환
         return todoService.join(todo);
     }
 
     @PatchMapping("/{id}")
-    public Todo toggleTodo(@PathVariable Long id) {
+    public Todo toggleTodo(@PathVariable Long id) { //PathVariable은 URL에서 자동으로 id를 끌어다옴
         return todoService.completeTodo(id);
     }
 

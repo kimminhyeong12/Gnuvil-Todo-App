@@ -19,4 +19,10 @@ public class Todo {
     private boolean completed;
     private LocalDateTime createdAt;
 
+    public void setComplete(boolean completed){
+        this.completed = completed;
+    }
+
+
+
 }
