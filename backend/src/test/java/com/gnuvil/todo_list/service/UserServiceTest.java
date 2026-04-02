@@ -52,7 +52,7 @@ class UserServiceTest {
         user.setName("김민형");
         userService.join(user);
 
-        loginRequest.
+
     }
 
 

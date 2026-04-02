@@ -37,7 +37,7 @@ public class UserService {
                 user.getEmail(),
                 user.getName(),
                 "로그인 완료!"
-        );
+        );//
     }
 
     public User findOne(Long id) {

@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserRepository {
     private final EntityManager em;
 
-    //추가할 내용 : 회원 가입, 회원 ID값으로 조회, 회원 이메일로 조회, 전체 조회
+    //추가할 내용 : 회원 가입, 회원 ID값으로 조회, 회원 이메일로 조회, 전체 조회//
     public void save(User user) {
         em.persist(user);
     }
