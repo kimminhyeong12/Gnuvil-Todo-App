@@ -1,18 +1,19 @@
+import type { Todo } from "../types/todos";
 import { instance } from "./axios";
 
-export const getTodos = async () => {
+export const getTodos = async (): Promise<Todo[]> => {
   const res = await instance.get("/todos");
-  return res;
+  return res.data;
 };
 
-export const addTodo = async (title: string) => {
-  await instance.post("/todos", { title });
+export const addTodo = async (name: string) => {
+  await instance.post("/todos", { name });
 };
 
 export const deleteTodo = async (id: number) => {
   await instance.delete(`/todos/${id}`);
 };
 
-export const updateTodo = async (id: number, title: string) => {
-  await instance.put(`/todos/${id}`, { id, title });
+export const updateTodo = async ({ id, name }: { id: number | string; name: string }) => {
+  await instance.put(`/todos/${id}`, { id, name });
 };

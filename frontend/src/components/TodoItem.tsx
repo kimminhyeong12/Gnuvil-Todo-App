@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { useTodoMutation } from "../hooks/useTodoMutation";
 
 interface TodoItemProps {
   startEdit: (todo: { id: number; title: string }) => void;
-  deleteTodo: (id: number) => void;
   todo: { id: number; title: string };
 }
 
-export default function TodoItem({ startEdit, deleteTodo, todo }: TodoItemProps) {
+export default function TodoItem({ startEdit, todo }: TodoItemProps) {
   const [isChecked, setIsChecked] = useState(false);
+  const { deleteTodoMutation } = useTodoMutation();
   return (
     <>
       <div className="flex items-center gap-4 w-full">
@@ -25,7 +26,7 @@ export default function TodoItem({ startEdit, deleteTodo, todo }: TodoItemProps)
       </div>
       <button
         className="text-stone-300 hover:text-red-700 transition-colors font-bold pr-1 cursor-pointer"
-        onClick={() => deleteTodo(todo.id)}
+        onClick={() => deleteTodoMutation.mutate(todo.id)}
       >
         X
       </button>

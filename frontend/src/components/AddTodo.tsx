@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useTodoMutation } from "../hooks/useTodoMutation";
 
-export default function AddTodo({ addTodo }: { addTodo: (title: string) => void }) {
+export default function AddTodo() {
   const [userInput, setUserInput] = useState("");
+
+  const { addTodoMutation } = useTodoMutation();
 
   return (
     <form
-      className="flex gap-3 items-center bg-white p-2 rounded-lg shadow-md border border-stone-200 hover:border-stone-300 focus:border-stone-300 transition-all"
+      className="flex gap-3 items-center bg-white p-2 rounded-2xl shadow-md border border-stone-200 hover:border-stone-300 focus:border-stone-300 transition-all"
       onSubmit={(e) => {
         e.preventDefault();
-        addTodo(userInput);
+        addTodoMutation.mutate(userInput);
         setUserInput("");
       }}
     >
@@ -19,7 +22,7 @@ export default function AddTodo({ addTodo }: { addTodo: (title: string) => void 
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
       />
-      <button className="bg-stone-800 hover:bg-stone-700 cursor-pointer text-white w-10 h-10 rounded-xl transition-all flex items-center justify-center shadow-md">
+      <button className="bg-stone-800 hover:bg-stone-700 active:scale-95 cursor-pointer text-white w-10 h-10 rounded-2xl transition-all flex items-center justify-center shadow-md">
         <span className="text-2xl mb-1">+</span>
       </button>
     </form>
