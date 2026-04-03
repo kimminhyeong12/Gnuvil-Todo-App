@@ -1,27 +1,30 @@
-import { useState } from "react";
+import type { Todo } from "../types/todos";
 import { useTodoMutation } from "../hooks/useTodoMutation";
 
 interface TodoItemProps {
-  startEdit: (todo: { id: number; title: string }) => void;
-  todo: { id: number; title: string };
+  startEdit: (todo: Todo) => void;
+  todo: Todo;
 }
 
 export default function TodoItem({ startEdit, todo }: TodoItemProps) {
-  const [isChecked, setIsChecked] = useState(false);
-  const { deleteTodoMutation } = useTodoMutation();
+  const { deleteTodoMutation, toggleTodoMutation } = useTodoMutation();
+
   return (
     <>
       <div className="flex items-center gap-4 w-full">
         <input
           type="checkbox"
           className="w-5 h-5 accent-stone-800 cursor-pointer"
-          onChange={(e) => setIsChecked(e.target.checked)}
+          checked={todo.completed}
+          onChange={() => toggleTodoMutation.mutate(todo.id)}
         />
         <p
-          className={`w-full text-stone-600 font-medium group-hover:text-stone-900 transition-all ${isChecked ? "line-through opacity-50" : ""}`}
+          className={`w-full text-stone-600 font-medium group-hover:text-stone-900 transition-all ${
+            todo.completed ? "line-through opacity-50" : ""
+          }`}
           onDoubleClick={() => startEdit(todo)}
         >
-          {todo.title}
+          {todo.name}
         </p>
       </div>
       <button

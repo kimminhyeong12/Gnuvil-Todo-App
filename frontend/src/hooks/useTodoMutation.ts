@@ -1,28 +1,30 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
-import { addTodo, deleteTodo, updateTodo } from "../api/todos";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { addTodo, deleteTodo, updateTodo, toggleTodo } from "../api/todos";
 
 export function useTodoMutation() {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
+
+  const invalidateTodos = () => queryClient.invalidateQueries({ queryKey: ["todos"] });
+
   const addTodoMutation = useMutation({
     mutationFn: addTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
+    onSuccess: invalidateTodos,
   });
 
   const deleteTodoMutation = useMutation({
     mutationFn: deleteTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
+    onSuccess: invalidateTodos,
   });
 
   const updateTodoMutation = useMutation({
     mutationFn: updateTodo,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
+    onSuccess: invalidateTodos,
   });
 
-  return { addTodoMutation, deleteTodoMutation, updateTodoMutation };
+  const toggleTodoMutation = useMutation({
+    mutationFn: toggleTodo,
+    onSuccess: invalidateTodos,
+  });
+
+  return { addTodoMutation, deleteTodoMutation, updateTodoMutation, toggleTodoMutation };
 }
