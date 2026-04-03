@@ -6,11 +6,11 @@ interface AuthPayload {
 }
 
 export const login = async (payload: AuthPayload) => {
-  const res = await instance.post("/auth/login", payload);
+  const res = await instance.post("/users/login", payload);
   return res.data;
 };
 
 export const signup = async (payload: AuthPayload & { name: string }) => {
-  const res = await instance.post("/auth/signup", payload);
+  const res = await instance.post("/users/signup", payload);
   return res.data;
 };
