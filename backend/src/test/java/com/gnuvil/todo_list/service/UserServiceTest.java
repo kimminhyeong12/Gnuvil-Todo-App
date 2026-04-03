@@ -8,21 +8,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-
+@Transactional //rollback 자동
 class UserServiceTest {
 
     @Autowired
     UserService userService;
-    @Autowired
-    LoginRequest loginRequest;
-    @Autowired
-    LoginResponse loginResponse;
     @Test
     public void 회원추가(){
         User user = new User();
@@ -47,10 +44,17 @@ class UserServiceTest {
     @Test
     public void login(){
         User user = new User();
-        user.setEmail("minhyeon@gmail.com");
+        user.setEmail("minhyeong123@gmail.com");
         user.setPasswd("0000");
         user.setName("김민형");
         userService.join(user);
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(user.getEmail());
+        loginRequest.setPasswd(user.getPasswd());
+
+        LoginResponse login = userService.login(loginRequest);
+        Assertions.assertThat(login.getEmail()).isEqualTo(user.getEmail());
 
 
     }
