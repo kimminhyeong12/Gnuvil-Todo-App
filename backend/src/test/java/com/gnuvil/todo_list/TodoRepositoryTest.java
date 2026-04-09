@@ -1,6 +1,7 @@
 package com.gnuvil.todo_list;
 
 import com.gnuvil.todo_list.domain.Todo;
+import com.gnuvil.todo_list.domain.User;
 import com.gnuvil.todo_list.repository.TodoRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,13 @@ class TodoRepositoryTest {
         Todo todo = new Todo();
         todo.setName("과제");
         todo.setCompleted(false);
-        todoRepository.save(todo);
+        User user = new User();
+        user.setId(123L);
+        user.setPasswd("123");
+        Long id = user.getId();
+        User findUser = todoRepository.findUserById(id);
+        todo.setUser(findUser);
+        todoRepository.save(id,todo);
         em.flush();
         em.clear();
         System.out.println("todo = " + todo.getName());

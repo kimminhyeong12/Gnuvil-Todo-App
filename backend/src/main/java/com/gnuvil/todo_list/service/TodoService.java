@@ -1,6 +1,7 @@
 package com.gnuvil.todo_list.service;
 
 import com.gnuvil.todo_list.domain.Todo;
+import com.gnuvil.todo_list.domain.User;
 import com.gnuvil.todo_list.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,10 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     @Transactional
-    public Long join(Todo todo) {
+    public Long join(Long id,Todo todo) {
         BlankInspection(todo);
-        todoRepository.save(todo);
+        todoRepository.save(id,todo);
         return todo.getId();
-
-
     }
 
     public void BlankInspection(Todo todo) {

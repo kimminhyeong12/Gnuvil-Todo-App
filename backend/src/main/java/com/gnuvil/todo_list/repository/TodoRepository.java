@@ -1,6 +1,7 @@
 package com.gnuvil.todo_list.repository;
 
 import com.gnuvil.todo_list.domain.Todo;
+import com.gnuvil.todo_list.domain.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,15 +14,20 @@ import java.util.List;
 public class TodoRepository {
     private final EntityManager em;
 
-    public void save(Todo todo) {
+    public void save(Long id,Todo todo) {
+        User findUser = findUserById(id);
+        todo.setUser(findUser);
         todo.setCreatedAt(LocalDateTime.now());
         em.persist(todo);
-
     }
 
     public Todo findById(Long id) {
         Todo todo = em.find(Todo.class, id);
         return todo;
+    }
+
+    public User findUserById(Long id) {
+        return em.find(User.class, id);
     }
     public List<Todo> findAll(){
         return em.createQuery("select t from Todo t", Todo.class)

@@ -25,9 +25,9 @@ public class TodoController {
         return todoService.findMyTodos(id);
     }
 
-    @PostMapping
-    public Long createTodo(@RequestBody Todo todo) {
-        return todoService.join(todo);
+    @PostMapping("/{id}")
+    public Long createTodo(@PathVariable Long id,@RequestBody Todo todo) {
+        return todoService.join(id,todo);
     }
 
     @PutMapping("/{id}")
