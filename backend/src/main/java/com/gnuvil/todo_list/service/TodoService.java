@@ -24,13 +24,15 @@ public class TodoService {
 
 
     }
+
     public void BlankInspection(Todo todo) {
         String name = todo.getName();
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("name은 비어 있을 수 없습니다.");
         }
     }
-    public List<Todo> findAll(){
+
+    public List<Todo> findAll() {
         List<Todo> findAll = todoRepository.findAll();
         return findAll;
     }
@@ -48,9 +50,13 @@ public class TodoService {
     }
 
     @Transactional
-    public void changeTodo(Long id,String name) {
+    public void changeTodo(Long id, String name) {
         Todo findTodo = todoRepository.findById(id);
         findTodo.setName(name);
     }
 
+    @Transactional(readOnly = true)
+    public List<Todo> findMyTodos(Long id) {
+        return todoRepository.findByUserId(id);
+    }
 }

@@ -28,6 +28,13 @@ public class TodoRepository {
                 .getResultList();
     }
 
+    public List<Todo> findByUserId(Long id) {
+        return em.createQuery("select t from Todo t where t.user.id = :userId", Todo.class)
+                .setParameter("userId", id)
+                .getResultList();
+
+    }
+
     public void remove(Long id) {
         Todo todo = em.find(Todo.class, id);
         em.remove(todo);
