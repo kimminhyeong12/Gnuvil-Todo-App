@@ -5,7 +5,7 @@ import com.gnuvil.todo_list.domain.User;
 import com.gnuvil.todo_list.repository.TodoRepository;
 import com.gnuvil.todo_list.service.TodoService;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @SpringBootTest
-//@Transactional
-@Rollback(value = false)
+@Transactional
+
 class TodoServiceTest {
     @Autowired
     TodoRepository todoRepository;
@@ -29,44 +29,26 @@ class TodoServiceTest {
     @Test
     @Transactional
     public void 할일추가(){
-        Todo todo = new Todo();
-        todo.setName("과제1");
-        todo.setCompleted(true);
-        User user = new User();
-        user.setId(123L);
-        user.setPasswd("213");
-        Long id = user.getId();
-        todoService.join(id,todo);
+        Long todo_id = todoService.join(12L, "abc");
+        Todo findTodo = todoRepository.findById(todo_id);
+        Assertions.assertThat(findTodo.getId()).isEqualTo(todo_id);
+        Assertions.assertThat(findTodo.getName()).isEqualTo("abc");
     }
 
     @Test
-    public void 공백검사(){
-        Todo todo = new Todo();
-        todo.setName("");
+    public void 할일조회(){
         User user = new User();
-        user.setId(123L);
-        user.setPasswd("213");
-        Long id = user.getId();
+        user.setEmail("minhyeong@gmail.com");
+        user.setName("kim");
+        user.setPasswd("1234");
+        em.persist(user);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                todoService.join(id,todo));
+        Long todo_id = todoService.join(user.getId(), "aa");   //10L은 user_id이다.
+        List<Todo> myTodos = todoService.findMyTodos(user.getId());
+
+        System.out.println("myTodos = " + myTodos);
+        Assertions.assertThat(myTodos.get(0).getName()).isEqualTo("aa");
     }
-    @Test
-    public void 조회(){
-        Todo todo = new Todo();
-        todo.setName("과제2");
-        User user = new User();
-        user.setId(123L);
-        user.setPasswd("213");
-        Long id = user.getId();
-        todoService.join(id,todo);
 
-        Todo todo2 = new Todo();
-        todo2.setName("과제3");
-        todoService.join(id,todo2);
-
-        List<Todo> all = todoService.findAll();
-        System.out.println("all = " + all);
-    }
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class TodoRepository {
     private final EntityManager em;
 
-    public void save(Long id,Todo todo) {
+    public void save(Long id, Todo todo) {
         User findUser = findUserById(id);
         todo.setUser(findUser);
         todo.setCreatedAt(LocalDateTime.now());

@@ -1,7 +1,6 @@
 package com.gnuvil.todo_list.service;
 
 import com.gnuvil.todo_list.domain.Todo;
-import com.gnuvil.todo_list.domain.User;
 import com.gnuvil.todo_list.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,14 +17,16 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     @Transactional
-    public Long join(Long id,Todo todo) {
-        BlankInspection(todo);
-        todoRepository.save(id,todo);
+    public Long join(Long id, String name) {
+        BlankInspection(name);
+        Todo todo = new Todo();
+        todo.setName(name);
+        todo.setCompleted(false);
+        todoRepository.save(id, todo);
         return todo.getId();
     }
 
-    public void BlankInspection(Todo todo) {
-        String name = todo.getName();
+    public void BlankInspection(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("name은 비어 있을 수 없습니다.");
         }

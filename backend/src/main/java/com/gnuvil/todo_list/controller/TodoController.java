@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173") //외부 도메인 허용
+@CrossOrigin(originPatterns = {"http://localhost:*", "http://127.0.0.1:*"}) //외부 도메인 허용
 public class TodoController {
 
     private final TodoService todoService;
@@ -19,15 +19,16 @@ public class TodoController {
     public record TodoRequest(String name){
 
     }
+//PathVariable이 아니라 Login 한 사용자의 객체에서 id를 꺼내와야함
 
-    @GetMapping("/{id}")
-    public List<Todo> getTodos(@PathVariable Long id) {
+    @GetMapping
+    public List<Todo> getTodos(@RequestAttribute("id") Long id) {
         return todoService.findMyTodos(id);
     }
 
-    @PostMapping("/{id}")
-    public Long createTodo(@PathVariable Long id,@RequestBody Todo todo) {
-        return todoService.join(id,todo);
+    @PostMapping
+    public Long createTodo(@RequestAttribute("id") Long id, @RequestBody TodoRequest todo) {
+        return todoService.join(id, todo.name());
     }
 
     @PutMapping("/{id}")

@@ -18,7 +18,8 @@ export default function AuthForm({ auth }: { auth: "login" | "signup" }) {
 
     try {
       if (auth === "login") {
-        await login({ email, passwd });
+        const user = await login({ email, passwd });
+        localStorage.setItem("userId", String(user.id));
         navigate("/todos");
       } else {
         const name = formData.get("name") as string;

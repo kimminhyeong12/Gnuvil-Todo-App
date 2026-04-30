@@ -30,7 +30,6 @@ class TodoRepositoryTest {
         Long id = user.getId();
         User findUser = todoRepository.findUserById(id);
         todo.setUser(findUser);
-        todoRepository.save(id,todo);
         em.flush();
         em.clear();
         System.out.println("todo = " + todo.getName());
