@@ -20,6 +20,7 @@ export default function AuthForm({ auth }: { auth: "login" | "signup" }) {
       if (auth === "login") {
         const user = await login({ email, passwd });
         localStorage.setItem("userId", String(user.id));
+        window.dispatchEvent(new Event("auth-change"));
         navigate("/todos");
       } else {
         const name = formData.get("name") as string;
