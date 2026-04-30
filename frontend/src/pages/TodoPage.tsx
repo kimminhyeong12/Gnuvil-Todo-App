@@ -51,7 +51,7 @@ export default function TodoPage() {
             </>
           ) : (
             <div className="flex flex-col items-center gap-5 text-center">
-              <p className="text-stone-500 font-medium">로그인을 해주세요.</p>
+              <p className="text-stone-500 font-medium">로그인이 필요합니다.</p>
               <Link
                 to="/auth/login"
                 className="px-6 py-3 bg-stone-800 text-white font-bold rounded-xl hover:bg-stone-700 transition-colors"

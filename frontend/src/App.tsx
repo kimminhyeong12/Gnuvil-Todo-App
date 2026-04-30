@@ -17,6 +17,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: <TodoPage />,
+      },
+      {
         path: "todos",
         element: <TodoPage />,
       },
