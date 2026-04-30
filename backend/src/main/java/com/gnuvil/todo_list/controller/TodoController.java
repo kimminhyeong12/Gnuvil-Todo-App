@@ -31,8 +31,8 @@ public class TodoController {
         return todoService.join(id, todo.name());
     }
 
-    @PutMapping("/{id}")
-    public void changeTodo(@PathVariable Long id, @RequestBody TodoRequest request){
+    @PutMapping
+    public void changeTodo(@PathVariable Long id, @RequestBody TodoRequest request) {
         todoService.changeTodo(id, request.name());
     }
 
