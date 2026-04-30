@@ -24,7 +24,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // 테스트를 위해 CSRF 비활성화
                 .cors(cors -> cors.configurationSource(request -> {
                     var config = new CorsConfiguration();
-                    config.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+                    config.setAllowedOriginPatterns(List.of(
+                            "http://localhost:*",
+                            "http://127.0.0.1:*",
+                            "https://*.vercel.app"
+                    ));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     return config;
