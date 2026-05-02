@@ -34,6 +34,7 @@ public class SecurityConfig {
                     return config;
                 }))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/api/**").permitAll() // 해당 경로 허용
                         .anyRequest().authenticated()
                 );
