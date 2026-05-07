@@ -1,24 +1,43 @@
-## 커밋 메시지 규칙 (Commit Convention)
+# Gnuvil Todo App
 
-### 1. 기본 형식
+React와 Spring Boot로 만든 로그인 기반 Todo 애플리케이션입니다.  
+사용자는 회원가입/로그인 후 본인의 할 일을 추가, 수정, 완료 처리, 삭제할 수 있습니다.
 
-> **`type: 작업 내용`** > (예: `feat: 할 일 삭제 기능 구현`)
+## 배포 주소
 
-### 2. 주요 타입 (Type)
+- Frontend: https://gnuvil-todo-app.vercel.app
+- Backend: https://gnuvil-todo-app.onrender.com
 
-| 타입         | 설명                                                |
-| :----------- | :-------------------------------------------------- |
-| **feat**     | 새로운 기능 추가                                    |
-| **fix**      | 버그 수정                                           |
-| **docs**     | 문서 수정 (README.md 등)                            |
-| **style**    | 코드 포맷팅, 세미콜론 누락 등 (코드 변경 없는 경우) |
-| **refactor** | 코드 리팩토링 (기능 변경 없이 코드 구조만 개선)     |
-| **test**     | 테스트 코드 추가 및 수정                            |
-| **chore**    | 빌드 업무 수정, 패키지 매니저 설정 등 (기타 작업)   |
+## 기술 스택
 
-### 3. 커밋 예시
+### Frontend
+- React
+- TypeScript
+- Vite
+- TanStack Query
+- Axios
+- Tailwind CSS
 
-- `feat: 스프링부트 초기 설정 및 DB 연동`
-- `feat: 할 일 추가 API 구현`
-- `style: 투두 리스트 아이템 디자인 수정`
-- `fix: 삭제 버튼 클릭 시 발생하는 에러 해결`
+### Backend
+- Java 17
+- Spring Boot
+- Spring Web
+- Spring JPA
+- Spring Security
+- PostgreSQL
+
+- ### Deploy
+- Vercel
+- Render
+- Supabase PostgreSQL
+
+## 주요 기능
+
+- 회원가입
+- 로그인
+- 로그아웃
+- 로그인한 사용자별 Todo 조회
+- Todo 추가
+- Todo 수정
+- Todo 완료 상태 토글
+- Todo 삭제
