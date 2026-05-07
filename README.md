@@ -7,8 +7,8 @@ Render 무료 서버를 사용하고 있어 일정 시간 요청이 없으면 �
 
 ## 배포 주소
 
-- Frontend: https://gnuvil-todo-app.vercel.app
-- Backend: https://gnuvil-todo-app.onrender.com
+https://gnuvil-todo-app.vercel.app
+
 
 ## 기술 스택
 
